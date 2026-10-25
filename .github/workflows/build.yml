@@ -33,16 +33,16 @@ jobs:
         run: |
           set -euo pipefail
 
-          mkdir -p ./data/row
+          mkdir -p ./data/raw
 
           curl -fL \
             "https://archive.ics.uci.edu/static/public/20/census+income.zip" \
             -o /tmp/census-income.zip          
-          unzip -o /tmp/census-income.zip -d ./data/row   
+          unzip -o /tmp/census-income.zip -d ./data/raw   
 
           rm /tmp/census-income.zip
 
-          echo "Dataset extracted to ./data/row"
+          echo "Dataset extracted to ./data/raw"
           find ./data -maxdepth 2 -type f
 
       - name: Train and save model
