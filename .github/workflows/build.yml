@@ -23,8 +23,26 @@ jobs:
       - name: Install dependencies
         run: | # barra vertical indica que vamos a ejecutar varios comandos en la misma linea. Vamos a ejecutar el pip install y el requirements.txt             
           python -m pip install --upgrade pip  
-          pip install -r requirements.txt    
-      
+          pip install -r requirements.txt   
+
+      # Metemos el paso de descargar el dataset de entrenamiento dentro del workflow de build, para que se ejecute cada vez que se haga push a la rama main           
+      - name: Download and extract dataset         
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          mkdir -p ./data/row
+
+          curl -fL \
+            "https://archive.ics.uci.edu/static/public/20/census+income.zip" \
+            -o /tmp/census-income.zip          
+          unzip -o /tmp/census-income.zip -d ./data/row   
+
+          rm /tmp/census-income.zip
+
+          echo "Dataset extracted to ./data/row"
+          find ./data -maxdepth 2 -type f
+
       - name: Train and save model
         run: | # Ejecutamos nuestro programa principal que entrena el modelo y lo guarda en la carpeta models
           python src/main.py
