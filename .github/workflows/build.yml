@@ -11,6 +11,8 @@ permissions:
 jobs:
   build: # Nombre del job simplemente lo llamamos build
     runs-on: ubuntu-latest # La maquina que vamos a usar para ejecutar el workflow dentro de github actions
+    # Staging es el nombre que hemos puesto a nuestro environment dentro del github
+    environment: Staging # Nombre del entorno que vamos a usar para ejecutar el workflow dentro de github actions
     steps:      
       - name: Checkout code 
         uses: actions/checkout@v3 # Nos clona el repositorio en la maquina virtual que se va a ejecutar el workflow
@@ -46,7 +48,15 @@ jobs:
       - name: Train and save model
         run: | # Ejecutamos nuestro programa principal que entrena el modelo y lo guarda en la carpeta models
           python src/main.py
-          
+        # Añadimos nuestras variables de entorno para poder publicar el modelo en mlflow  
+        env:
+          AZURE_TENANT_ID: ${ { secrets.AZURE_TENANT_ID } }
+          AZURE_CLIENT_ID: ${ { secrets.AZURE_CLIENT_ID } }
+          AZURE_CLIENT_SECRET: ${ { secrets.AZURE_CLIENT_SECRET } }
+          MLFLOW_URL: ${ { vars.MLFLOW_URL } }
+          EXPERIMENT_NAME: ${ { vars.EXPERIMENT_NAME } }
+
+
       - name: Publicar artefactos
         uses: actions/upload-artifact@v4
         with:
