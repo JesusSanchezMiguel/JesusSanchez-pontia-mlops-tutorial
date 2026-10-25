@@ -1,0 +1,37 @@
+name: Build Model
+
+on: # Se nos va a ejecutar el workflow cuando se haga push a la rama main
+  push:
+    branches:
+      - main  
+
+permissions:
+  contents: write
+
+jobs:
+  build: # Nombre del job simplemente lo llamamos build
+    runs-on: ubuntu-latest # La maquina que vamos a usar para ejecutar el workflow dentro de github actions
+    steps:      
+      - name: Checkout code 
+        uses: actions/checkout@v3 # Nos clona el repositorio en la maquina virtual que se va a ejecutar el workflow
+
+      - name: Set up Python
+        uses: actions/setup-python@v5 # configuramos la version de python que vamos a usar ()es un action creado por una persona
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: | # barra vertical indica que vamos a ejecutar varios comandos en la misma linea. Vamos a ejecutar el pip install y el requirements.txt             
+          python -m pip install --upgrade pip  
+          pip install -r requirements.txt    
+      
+      - name: Train and save model
+        run: | # Ejecutamos nuestro programa principal que entrena el modelo y lo guarda en la carpeta models
+          python src/main.py
+          
+      - name: Publicar artefactos
+        uses: actions/upload-artifact@v4
+        with:
+          name: model.pkl
+          path: ./models/model.pkl
+          retention-days: 30
