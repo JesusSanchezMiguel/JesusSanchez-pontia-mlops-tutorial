@@ -48,7 +48,7 @@ jobs:
       - name: Train and save model
         run: | # Ejecutamos nuestro programa principal que entrena el modelo y lo guarda en la carpeta models
           python src/main.py
-        # Añadimos nuestras variables de entorno para poder publicar el modelo en mlflow  
+        # Añadimos nuestras variables de entorno para poder publicar el modelo en mlflow . s 
         env:
           AZURE_TENANT_ID: ${ { secrets.AZURE_TENANT_ID } }
           AZURE_CLIENT_ID: ${ { secrets.AZURE_CLIENT_ID } }
