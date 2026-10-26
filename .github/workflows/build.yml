@@ -50,11 +50,11 @@ jobs:
           python src/main.py
         # Añadimos nuestras variables de entorno para poder publicar el modelo en mlflow . dd
         env:
-          AZURE_TENANT_ID: ${ { secrets.AZURE_TENANT_ID } }
-          AZURE_CLIENT_ID: ${ { secrets.AZURE_CLIENT_ID } }
-          AZURE_CLIENT_SECRET: ${ { secrets.AZURE_CLIENT_SECRET } }
-          MLFLOW_URI: ${ { vars.MLFLOW_URL } }
-          EXPERIMENT_NAME: ${ { vars.EXPERIMENT_NAME } }
+          AZURE_TENANT_ID: ${{secrets.AZURE_TENANT_ID}}
+          AZURE_CLIENT_ID: ${{secrets.AZURE_CLIENT_ID}}
+          AZURE_CLIENT_SECRET: ${{secrets.AZURE_CLIENT_SECRET}}
+          MLFLOW_URI: ${{ vars.MLFLOW_URL }}
+          EXPERIMENT_NAME: ${{ vars.EXPERIMENT_NAME }}
 
 
       - name: Publicar artefactos
