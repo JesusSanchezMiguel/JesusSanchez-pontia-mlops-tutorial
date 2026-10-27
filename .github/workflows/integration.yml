@@ -1,6 +1,6 @@
 name: Integration
 
-on: # Este workflow se ejecuta cuando se hace un push a la rama main o cuando se abre un pull request hacia la rama main v
+on: # Este workflow se ejecuta cuando se hace un push a la rama main o cuando se abre un pull request hacia la rama main vdf
   pull_request:
 
 jobs:
