@@ -47,6 +47,7 @@ jobs:
       - name: Download Model
         run: |
           python scripts/download_model.py
+        # Añadimos nuestras variables de entorno para poder descargar el modelo de mlflow. Tanto los secrets como las variables de entorno las hemos creado en github, y las podemos usar en los workflows de github actions
         env:
           AZURE_TENANT_ID: ${{secrets.AZURE_TENANT_ID}}
           AZURE_CLIENT_ID: ${{secrets.AZURE_CLIENT_ID}}
