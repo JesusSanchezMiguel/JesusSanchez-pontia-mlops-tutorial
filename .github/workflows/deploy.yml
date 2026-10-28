@@ -47,7 +47,7 @@ jobs:
         env:
           RESOURCE_GROUP: ${{ vars.RESOURCE_GROUP }}
           CONTAINER_APP: ${{ vars.CONTAINER_APP }}
-        run:   # asñ´jdg  cccccccc
+        run: |  # asñ´jdg  cccccccc
           az containerapp show \
             --name "$CONTAINER_APP" \
             --resource-group "$RESOURCE_GROUP" \
